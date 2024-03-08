@@ -1,25 +1,17 @@
 package com.fsoft.internet.entities;
 
-import javax.persistence.*;
 import java.util.Set;
 
-@Entity(name = "computer")
 public class Computer {
 
-  @Id
-  @Column(name = "computer_id")
   private String computerId;
 
-  @Column(name = "location", columnDefinition = "nvarchar(255)")
   private String location;
 
-  @Column(name = "status", columnDefinition = "nvarchar(255)")
   private String status;
 
-  @Column(name = "delete_status")
   private Integer deleteStatus;
 
-  @OneToMany(mappedBy = "computer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   Set<Records> records;
 
   public Computer() {
