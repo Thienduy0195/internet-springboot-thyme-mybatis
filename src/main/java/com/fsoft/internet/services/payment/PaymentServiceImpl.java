@@ -13,10 +13,15 @@ import java.util.Optional;
 @Service
 public class PaymentServiceImpl implements IPaymentService {
 
-  @Autowired
+
   private IPaymentRepository paymentRepository;
 
   public PaymentServiceImpl() {
+  }
+
+  @Autowired
+  public PaymentServiceImpl(IPaymentRepository paymentRepository) {
+    this.paymentRepository = paymentRepository;
   }
 
   @Override
@@ -44,7 +49,7 @@ public class PaymentServiceImpl implements IPaymentService {
 
   @Override
   public List<Payment> getRecordsForCurrentPage(int start, int recordsPerPage) {
-    return paymentRepository.getRecordsForCurrentPage(start, recordsPerPage);
+    return null;
   }
 
   @Override
@@ -61,7 +66,7 @@ public class PaymentServiceImpl implements IPaymentService {
 
   @Override
   public List<Payment> getAllByCustomerId(String id) {
-    return paymentRepository.getAllByCustomerId(id);
+    return null;
   }
 
   @Override
@@ -81,14 +86,12 @@ public class PaymentServiceImpl implements IPaymentService {
   @Override
   public List<Payment> search(String customerId, String productId, int i,
       int recordsPerPage) {
-    return paymentRepository.search("%" + customerId + "%",
-        "%" + productId + "%", i, recordsPerPage);
+    return null;
   }
 
   @Override
   public List<Payment> search(String customerId, String productId) {
-    return paymentRepository.search("%" + customerId + "%",
-        "%" + productId + "%");
+    return null;
   }
 
 }

@@ -1,8 +1,8 @@
 package com.fsoft.internet.entities;
 
+import jakarta.persistence.Embeddable;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -10,65 +10,65 @@ import java.time.LocalTime;
 @Embeddable
 public class PaymentId implements Serializable {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
-  private String customerId;
-  private String productId;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    private String customerId;
+    private String productId;
 
-  @DateTimeFormat(pattern = "yyyy-MM-dd")
-  private LocalDate usingDate;
-  @DateTimeFormat(pattern = "HH:mm")
-  private LocalTime usingHour;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate usingDate;
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime usingHour;
 
-  public PaymentId() {
-  }
+    public PaymentId() {
+    }
 
-  public PaymentId(String customerId, String productId, LocalDate usingDate,
-      LocalTime usingHour) {
-    this.customerId = customerId;
-    this.productId = productId;
-    this.usingDate = usingDate;
-    this.usingHour = usingHour;
-  }
+    public PaymentId(String customerId, String productId, LocalDate usingDate,
+                     LocalTime usingHour) {
+        this.customerId = customerId;
+        this.productId = productId;
+        this.usingDate = usingDate;
+        this.usingHour = usingHour;
+    }
 
-  public String getCustomerId() {
-    return customerId;
-  }
+    public String getCustomerId() {
+        return customerId;
+    }
 
-  public void setCustomerId(String customerId) {
-    this.customerId = customerId;
-  }
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
 
-  public String getProductId() {
-    return productId;
-  }
+    public String getProductId() {
+        return productId;
+    }
 
-  public void setProductId(String productId) {
-    this.productId = productId;
-  }
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
 
-  public LocalDate getUsingDate() {
-    return usingDate;
-  }
+    public LocalDate getUsingDate() {
+        return usingDate;
+    }
 
-  public void setUsingDate(LocalDate usingDate) {
-    this.usingDate = usingDate;
-  }
+    public void setUsingDate(LocalDate usingDate) {
+        this.usingDate = usingDate;
+    }
 
-  public LocalTime getUsingHour() {
-    return usingHour;
-  }
+    public LocalTime getUsingHour() {
+        return usingHour;
+    }
 
-  public void setUsingHour(LocalTime usingHour) {
-    this.usingHour = usingHour;
-  }
+    public void setUsingHour(LocalTime usingHour) {
+        this.usingHour = usingHour;
+    }
 
-  @Override
-  public String toString() {
-    return "PaymentId [customerId=" + customerId + ", productId=" + productId
-        + ", usingDate=" + usingDate + ", usingHour=" + usingHour + "]";
-  }
+    @Override
+    public String toString() {
+        return "PaymentId [customerId=" + customerId + ", productId=" + productId
+                + ", usingDate=" + usingDate + ", usingHour=" + usingHour + "]";
+    }
 
 }

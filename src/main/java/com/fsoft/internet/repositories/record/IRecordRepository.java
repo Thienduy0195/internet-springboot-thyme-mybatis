@@ -12,20 +12,5 @@ import java.util.List;
 @Repository
 public interface IRecordRepository extends JpaRepository<Records, RecordId> {
 
-  @Query(value = "select * from record where customer_id=:id", nativeQuery = true)
-  List<Records> getAllByCustomerId(@Param("id") String id);
-
-  @Query(value = "select * from record order by startingDate offset :start ROWS FETCH FIRST :recordsPerPage ROWS ONLY;", nativeQuery = true)
-  List<Records> getRecordsForCurrentPage(@Param("start") int start,
-      @Param("recordsPerPage") int recordsPerPage);
-
-  @Query(value = "select * from record where customer_id like :customerId and computer_id like :computerId order by startingDate offset :start ROWS FETCH FIRST :recordsPerPage ROWS ONLY;", nativeQuery = true)
-  List<Records> search(@Param("customerId") String customerId,
-      @Param("computerId") String computerId, @Param("start") int start,
-      @Param("recordsPerPage") int recordsPerPage);
-
-  @Query(value = "select * from record where customer_id like :customerId and computer_id like :computerId ;", nativeQuery = true)
-  List<Records> search(@Param("customerId") String customerId,
-      @Param("computerId") String computerId);
 
 }

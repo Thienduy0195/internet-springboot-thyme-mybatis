@@ -8,8 +8,13 @@ import javax.validation.ConstraintValidatorContext;
 
 public class CheckPhoneExitsValidator
     implements ConstraintValidator<CheckPhoneExitsConstraint, String> {
-  @Autowired
+
   private ICustomerService customerService;
+
+  @Autowired
+  public CheckPhoneExitsValidator(ICustomerService customerService) {
+    this.customerService = customerService;
+  }
 
   @Override
   public void initialize(CheckPhoneExitsConstraint constraintAnnotation) {

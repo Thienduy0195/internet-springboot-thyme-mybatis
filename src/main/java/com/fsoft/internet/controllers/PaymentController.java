@@ -25,16 +25,21 @@ import java.util.Locale;
 @RequestMapping(value = "/payment")
 public class PaymentController {
 
-  @Autowired
   private ICustomerService customerService;
-  @Autowired
+
   private IProductService productService;
 
-  @Autowired
   private IPaymentService paymentService;
 
-  @Autowired
   private ModelMapper modelMapper;
+
+  @Autowired
+  public PaymentController(ICustomerService customerService, IProductService productService, IPaymentService paymentService, ModelMapper modelMapper) {
+    this.customerService = customerService;
+    this.productService = productService;
+    this.paymentService = paymentService;
+    this.modelMapper = modelMapper;
+  }
 
   @GetMapping("/create")
   public String showCreateForm(Model model) {

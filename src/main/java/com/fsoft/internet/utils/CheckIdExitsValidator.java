@@ -11,14 +11,18 @@ import javax.validation.ConstraintValidatorContext;
 public class CheckIdExitsValidator
     implements ConstraintValidator<CheckIdExistsConstraint, String> {
 
-  @Autowired
   private ICustomerService customerService;
 
-  @Autowired
   private IComputerService computerService;
 
-  @Autowired
   private IProductService productService;
+
+  @Autowired
+  public CheckIdExitsValidator(ICustomerService customerService, IComputerService computerService, IProductService productService) {
+    this.customerService = customerService;
+    this.computerService = computerService;
+    this.productService = productService;
+  }
 
   @Override
   public void initialize(CheckIdExistsConstraint constraintAnnotation) {

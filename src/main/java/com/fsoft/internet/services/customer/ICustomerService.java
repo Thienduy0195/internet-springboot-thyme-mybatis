@@ -35,4 +35,5 @@ public interface ICustomerService {
   List<Customer> searchByNameAndAddress(String searchName,
       String searchAddress);
 
+  List<Customer> findAllCustomer();
 }

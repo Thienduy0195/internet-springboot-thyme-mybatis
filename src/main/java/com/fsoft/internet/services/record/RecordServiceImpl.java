@@ -10,8 +10,12 @@ import java.util.List;
 @Service
 public class RecordServiceImpl implements IRecordService {
 
-  @Autowired
   private IRecordRepository recordRepository;
+
+  @Autowired
+  public RecordServiceImpl(IRecordRepository recordRepository) {
+    this.recordRepository = recordRepository;
+  }
 
   @Override
   public void createOrUpdate(Records record) {
@@ -20,7 +24,7 @@ public class RecordServiceImpl implements IRecordService {
 
   @Override
   public List<Records> getAllByCustomerId(String id) {
-    return recordRepository.getAllByCustomerId(id);
+    return null;
   }
 
   @Override
@@ -30,21 +34,19 @@ public class RecordServiceImpl implements IRecordService {
 
   @Override
   public List<Records> getRecordsForCurrentPage(int start, int recordsPerPage) {
-    return recordRepository.getRecordsForCurrentPage(start, recordsPerPage);
+    return null;
   }
 
   @Override
   public List<Records> search(String customerId, String computerId, int i,
       int recordsPerPage) {
-    return recordRepository.search("%" + customerId + "%",
-        "%" + computerId + "%", i, recordsPerPage);
+    return null;
   }
 
   @Override
   public List<Records> search(String customerId, String computerId) {
     // TODO Auto-generated method stub
-    return recordRepository.search("%" + customerId + "%",
-        "%" + computerId + "%");
+    return null;
   }
 
 }

@@ -1,72 +1,72 @@
 package com.fsoft.internet.entities;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity(name = "record")
 public class Records {
 
-  @EmbeddedId
-  private RecordId recordId;
+    @EmbeddedId
+    private RecordId recordId;
 
-  @JoinColumn(name = "computer_id")
-  @ManyToOne(fetch = FetchType.LAZY)
-  @MapsId("computerId")
-  private Computer computer;
+    @JoinColumn(name = "computer_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("computerId")
+    private Computer computer;
 
-  @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
-  @ManyToOne(fetch = FetchType.LAZY)
-  @MapsId("customerId")
-  private Customer customer;
+    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("customerId")
+    private Customer customer;
 
-  private Integer usingTime;
+    private Integer usingTime;
 
-  public Records() {
-  }
+    public Records() {
+    }
 
-  public Records(RecordId recordId, Computer computer, Customer customer,
-      Integer usingTime) {
-    this.recordId = recordId;
-    this.computer = computer;
-    this.customer = customer;
-    this.usingTime = usingTime;
-  }
+    public Records(RecordId recordId, Computer computer, Customer customer,
+                   Integer usingTime) {
+        this.recordId = recordId;
+        this.computer = computer;
+        this.customer = customer;
+        this.usingTime = usingTime;
+    }
 
-  public RecordId getRecordId() {
-    return recordId;
-  }
+    public RecordId getRecordId() {
+        return recordId;
+    }
 
-  public void setRecordId(RecordId recordId) {
-    this.recordId = recordId;
-  }
+    public void setRecordId(RecordId recordId) {
+        this.recordId = recordId;
+    }
 
-  public Computer getComputer() {
-    return computer;
-  }
+    public Computer getComputer() {
+        return computer;
+    }
 
-  public void setComputer(Computer computer) {
-    this.computer = computer;
-  }
+    public void setComputer(Computer computer) {
+        this.computer = computer;
+    }
 
-  public Customer getCustomer() {
-    return customer;
-  }
+    public Customer getCustomer() {
+        return customer;
+    }
 
-  public void setCustomer(Customer customer) {
-    this.customer = customer;
-  }
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 
-  public Integer getUsingTime() {
-    return usingTime;
-  }
+    public Integer getUsingTime() {
+        return usingTime;
+    }
 
-  public void setUsingTime(Integer usingTime) {
-    this.usingTime = usingTime;
-  }
+    public void setUsingTime(Integer usingTime) {
+        this.usingTime = usingTime;
+    }
 
-  @Override
-  public String toString() {
-    return "Record [recordId=" + recordId + ", computer=" + computer
-        + ", customer=" + customer + ", usingTime=" + usingTime + "]";
-  }
+    @Override
+    public String toString() {
+        return "Record [recordId=" + recordId + ", computer=" + computer
+                + ", customer=" + customer + ", usingTime=" + usingTime + "]";
+    }
 
 }

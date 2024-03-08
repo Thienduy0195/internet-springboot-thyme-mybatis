@@ -12,11 +12,12 @@ import java.util.Optional;
 
 @Service
 public class ComputerServiceImpl implements IComputerService {
-  @Autowired
+
   private IComputerRepository computerRepository;
 
-  public ComputerServiceImpl() {
-
+  @Autowired
+  public ComputerServiceImpl(IComputerRepository computerRepository) {
+    this.computerRepository = computerRepository;
   }
 
   @Override
@@ -38,7 +39,7 @@ public class ComputerServiceImpl implements IComputerService {
   @Override
   public List<Computer> getRecordsForCurrentPage(int start,
       int recordsPerPage) {
-    return computerRepository.getRecordsForCurrentPage(start, recordsPerPage);
+    return null;
   }
 
   @Override
@@ -48,7 +49,7 @@ public class ComputerServiceImpl implements IComputerService {
 
   @Override
   public Optional<Computer> findById(String id) {
-    return computerRepository.findById(id.toUpperCase());
+    return null;
   }
 
   @Override
@@ -59,26 +60,23 @@ public class ComputerServiceImpl implements IComputerService {
   @Override
   public List<Computer> search(String searchId, String searchLocation,
       String status, int start, int recordsPerPage) {
-    return computerRepository.search("%" + searchId + "%",
-        "%" + searchLocation + "%", "%" + status + "%", start, recordsPerPage);
+    return null;
   }
 
   @Override
   public boolean delete(String id) {
-    computerRepository.deleteById(id);
     return false;
   }
 
   @Override
   public List<Computer> search(String searchId, String searchLocation,
       String status) {
-    return computerRepository.search("%" + searchId + "%",
-        "%" + searchLocation + "%", "%" + status + "%");
+    return null;
   }
 
   @Override
   public List<Computer> getOfflineList() {
-    return computerRepository.getOfflineList();
+    return null;
   }
 
 }

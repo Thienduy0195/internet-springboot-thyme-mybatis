@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Update product</title>
-	<link rel="stylesheet" href="/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="/css/create-product.css" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/create-product.css}">
 </head>
 <body style="background-color: #121212;">
 
 	<%@ include file="../commons/header.html"%>
 
-	<div class="container-fluid d-flex justify-content-center">
+	<div class="container-fluid d-flex justify-content-center mt-3">
 		<div class="login-form">
 			<h3 class="text-center text-white">UPDATE SERVICE</h3>
 			<form:form

@@ -8,8 +8,13 @@ import javax.validation.ConstraintValidatorContext;
 
 public class CheckEmailExitsValidator
     implements ConstraintValidator<CheckEmailExitsConstraint, String> {
-  @Autowired
+
   private ICustomerService customerService;
+
+  @Autowired
+  public CheckEmailExitsValidator(ICustomerService customerService) {
+    this.customerService = customerService;
+  }
 
   @Override
   public void initialize(CheckEmailExitsConstraint constraintAnnotation) {
