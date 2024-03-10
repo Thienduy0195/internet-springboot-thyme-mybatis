@@ -1,7 +1,7 @@
 package com.fsoft.internet.services.computer;
 
-import com.fsoft.internet.entities.Computer;
-import com.fsoft.internet.repositories.computer.IComputerRepository;
+import com.fsoft.internet.models.Computer;
+import com.fsoft.internet.mappers.ComputerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,27 +13,21 @@ import java.util.Optional;
 @Service
 public class ComputerServiceImpl implements IComputerService {
 
-  private IComputerRepository computerRepository;
+  private ComputerMapper computerMapper;
 
   @Autowired
-  public ComputerServiceImpl(IComputerRepository computerRepository) {
-    this.computerRepository = computerRepository;
+  public ComputerServiceImpl(ComputerMapper computerMapper) {
+    this.computerMapper = computerMapper;
   }
 
   @Override
   public void createOrUpdate(Computer computer) {
-    computerRepository.save(computer);
+    computerMapper.insert(computer);
   }
 
   @Override
   public Page<Computer> findAll(Pageable pageable) {
-    List<Computer> computers = computerRepository.findAll(pageable)
-        .getContent();
-    System.out.println("COMPUTER LIST");
-    for (Computer computer : computers) {
-      System.out.println(computer.toString());
-    }
-    return computerRepository.findAll(pageable);
+    return null;
   }
 
   @Override
@@ -44,7 +38,7 @@ public class ComputerServiceImpl implements IComputerService {
 
   @Override
   public int getNoOfRecords() {
-    return computerRepository.findAll().size();
+    return 0;
   }
 
   @Override
@@ -54,7 +48,7 @@ public class ComputerServiceImpl implements IComputerService {
 
   @Override
   public List<Computer> getList() {
-    return computerRepository.findAll();
+    return null;
   }
 
   @Override

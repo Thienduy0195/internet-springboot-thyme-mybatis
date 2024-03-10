@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+		<jdbcConnection
+			driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+			connectionURL="jdbc:sqlserver://localhost:1433;databaseName=INTERNET_DATABASE;encrypt=true;trustServerCertificate=true"
+			userId="sa" password="12345">
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<javaModelGenerator
+			targetPackage="com.fsoft.internet.models"
+			targetProject="internet-springboot-thyme-mybatis" />
+
+
+		<sqlMapGenerator targetPackage="mybatis.sql"
+			targetProject="internet-springboot-thyme-mybatis/src/main/resources" />
+
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.fsoft.internet.mappers"
+			targetProject="internet-springboot-thyme-mybatis" />
+
+		<table tableName="computer" domainObjectName="Computer" />
+		<table tableName="customer" domainObjectName="Customer" />
+		<table tableName="payment" domainObjectName="Payment" />
+		<table tableName="product" domainObjectName="Product" />
+		<table tableName="record" domainObjectName="Record" />
+
+	</context>
+</generatorConfiguration>

@@ -1,6 +1,6 @@
 package com.fsoft.internet.services.product;
 
-import com.fsoft.internet.entities.Product;
+import com.fsoft.internet.models.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

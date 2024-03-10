@@ -1,6 +1,6 @@
 package com.fsoft.internet.services.computer;
 
-import com.fsoft.internet.entities.Computer;
+import com.fsoft.internet.models.Computer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

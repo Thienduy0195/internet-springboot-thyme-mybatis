@@ -19,38 +19,43 @@
             <div class="row my-4">
                 <div class="col-md-3" style="padding-right: 15px">
                     <div class="form-floating textbox mb-4">
-
                         <input th:field="*{customerId}" type="text"
                                class="form-control input" id="customerId"
-                               placeholder="Họ và tên" autocomplete="off"/>
-                        <label for="full-name" style="color: white"> Code
+                               placeholder="Họ và tên" autocomplete="off"
+                               onblur="validateByJS(this.id,'customerId',this.value)"
+                        />
+                        <label for="customerId" style="color: white"> Code
                             (CUSxxxxx) <span class="text-danger">*</span>
                         </label>
-                        <span class="text-danger" th:if="${#fields.hasErrors('customerId')}"
+                        <span id="customerId1" class="text-danger" th:if="${#fields.hasErrors('customerId')}"
                               th:errors="*{customerId}"></span>
                     </div>
                 </div>
                 <div class="col-md-6" style="padding-right: 15px">
                     <div class="form-floating textbox mb-4">
-                        <input th:field="*{name}" type="text" class="form-control input"
-                               id="full-name" placeholder="Họ và tên" autocomplete="off"/>
-                        <label for="full-name" style="color: white"> Full name <span
+                        <input th:field="*{customerName}" type="text" class="form-control input"
+                               id="customerName" placeholder="Họ và tên" autocomplete="off"
+                               onblur="validateByJS(this.id,'customerName',this.value)"
+                        />
+                        <label for="customerName" style="color: white"> Full name <span
                                 class="text-danger">*</span>
                         </label>
-                        <span class="text-danger" th:if="${#fields.hasErrors('name')}"
-                              th:errors="*{name}"></span>
+                        <span id="customerName1" class="text-danger" th:if="${#fields.hasErrors('customerName')}"
+                              th:errors="*{customerName}"></span>
                     </div>
                 </div>
 
                 <div class="col-md-3" style="padding-right: 15px">
                     <div class="form-floating textbox mb-4">
                         <input th:field="*{phoneNumber}" type="text"
-                               class="form-control input" id="phone-number"
-                               placeholder="Họ và tên" autocomplete="off"/>
-                        <label for="phone-number" style="color: white"> Phone <span
+                               class="form-control input" id="phoneNumber"
+                               placeholder="Họ và tên" autocomplete="off"
+                               onblur="validateByJS(this.id,'phoneNumber',this.value)"
+                        />
+                        <label for="phoneNumber" style="color: white"> Phone <span
                                 class="text-danger">*</span>
                         </label>
-                        <span class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}"
+                        <span id="phoneNumber1" class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}"
                               th:errors="*{phoneNumber}"></span>
                     </div>
                 </div>
@@ -61,11 +66,13 @@
                 <div class="col-md-6" style="padding-right: 15px">
                     <div class="form-floating textbox mb-4">
                         <input th:field="*{email}" type="email" class="form-control input"
-                               id="email" placeholder="example@gmail.com" autocomplete="off"/>
+                               id="email" placeholder="example@gmail.com" autocomplete="off"
+                               onblur="validateByJS(this.id,'email',this.value)"
+                        />
                         <label for="email" style="color: white"> Email <span
                                 class="text-danger">*</span>
                         </label>
-                        <span class="text-danger" th:if="${#fields.hasErrors('email')}"
+                        <span id="email1" class="text-danger" th:if="${#fields.hasErrors('email')}"
                               th:errors="*{email}"></span>
                     </div>
                 </div>
@@ -73,11 +80,13 @@
                 <div class="col-md-6" style="padding-right: 15px">
                     <div class="form-floating textbox mb-4">
                         <input th:field="*{address}" type="text" class="form-control input"
-                               id="address" placeholder="Họ và tên" autocomplete="off"/>
+                               id="address" placeholder="Họ và tên" autocomplete="off"
+                               onblur="validateByJS(this.id,'address',this.value)"
+                        />
                         <label for="address" style="color: white"> Address <span
                                 class="text-danger">*</span>
                         </label>
-                        <span class="text-danger" th:if="${#fields.hasErrors('address')}"
+                        <span id="address1" class="text-danger" th:if="${#fields.hasErrors('address')}"
                               th:errors="*{address}"></span>
                     </div>
                 </div>
@@ -103,5 +112,63 @@
 </div>
 </body>
 
+
+<script>
+
+    var valid = [];
+    function validateByJS(id, nameInput, valueInput) {
+        const index = valid.findIndex(obj => obj.hasOwnProperty(id));
+        let checkVar = checkValidate(valueInput,nameInput)
+        console.log(checkVar)
+        if (checkVar !== "") {
+            if (index !== -1) {
+                valid[index][id]= true
+                console.log(valid)
+            }else {
+                valid = [...valid, {[id]: true }];
+                console.log(valid);
+            }
+            document.getElementById(id+"1").innerText= checkVar
+        } else {
+            console.log(index)
+            if (index !== -1) {
+                valid[index][id]= false
+                document.getElementById(id+"1").innerText=""
+                console.log(valid);
+            }
+        }
+        let check = true
+        valid.forEach(item=> {
+
+            if(item[Object.keys(item)[0]]){
+                document.getElementById("submitBtn").disabled = true
+                check= false
+            }
+
+        })
+        if(check) {
+            document.getElementById("submitBtn").disabled = false
+        }
+    }
+
+    function checkValidate(value, nameValidate) {
+
+        const codeRegex = /^CUS\d{5}$/;
+
+        if(value === "" || value === 0 ) {
+            return "Required!";
+        }
+
+        if(nameValidate === 'computerId') {
+            if(!value.match(codeRegex)) {
+                return "Wrong format CUSxxxxx";
+            }
+        }
+
+        return "";
+
+    }
+
+</script>
 
 </html>

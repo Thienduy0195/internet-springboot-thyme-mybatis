@@ -1,6 +1,6 @@
 package com.fsoft.internet.services.customer;
 
-import com.fsoft.internet.entities.Customer;
+import com.fsoft.internet.models.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface ICustomerService {
 
-  void createOrUpdate(Customer customer);
+  void create(Customer customer);
 
   Page<Customer> findAll(Pageable pageable);
 
@@ -36,4 +36,6 @@ public interface ICustomerService {
       String searchAddress);
 
   List<Customer> findAllCustomer();
+
+  void update(Customer customer);
 }

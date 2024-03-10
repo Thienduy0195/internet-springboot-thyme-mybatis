@@ -1,7 +1,8 @@
 package com.fsoft.internet.services.customer;
 
-import com.fsoft.internet.entities.Customer;
-import com.fsoft.internet.repositories.customer.ICustomerRepository;
+import com.fsoft.internet.mappers.CustomerMapper;
+import com.fsoft.internet.models.Customer;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,51 +12,46 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class CustomerServiceImpl implements ICustomerService {
 
-
-    private ICustomerRepository customerRepository;
-
-    @Autowired
-    public CustomerServiceImpl(ICustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
-    }
-
-    public ICustomerRepository getCustomerRepository() {
-        return customerRepository;
-    }
+    private CustomerMapper customerMapper;
 
     @Autowired
-    public void setCustomerRepository(ICustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
+    public CustomerServiceImpl(CustomerMapper customerMapper) {
+        this.customerMapper = customerMapper;
+    }
+
+    public CustomerMapper getCustomerMapper() {
+        return customerMapper;
+    }
+
+    @Autowired
+    public void setCustomerMapper(CustomerMapper customerMapper) {
+        this.customerMapper = customerMapper;
     }
 
     public CustomerServiceImpl() {
     }
 
     @Override
-    public void createOrUpdate(Customer customer) {
-        customerRepository.save(customer);
+    public void create(Customer customer) {
+        customerMapper.insertCustomer(customer);
     }
 
     @Override
     public Page<Customer> findAll(Pageable pageable) {
-        return customerRepository.findAll(pageable);
+        return null;
     }
 
     @Override
     public Integer getLastId() {
-        Optional<Customer> customer = customerRepository.findAll().stream()
-                .reduce((first, second) -> second);
-        if (customer.isPresent()) {
-            return Integer.parseInt(customer.get().getCustomerId().substring(3));
-        }
         return 0;
     }
 
     @Override
     public int getNoOfRecords() {
-        return customerRepository.findAll().size();
+        return 0;
     }
 
     @Override
@@ -71,7 +67,7 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public List<Customer> getList() {
-        return customerRepository.findAll();
+        return null;
     }
 
     @Override
@@ -103,7 +99,12 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public List<Customer> findAllCustomer() {
-        return customerRepository.findAll();
+        return customerMapper.selectAll();
+    }
+
+    @Override
+    public void update(Customer customer) {
+        customerMapper.updateByPrimaryKeySelective(customer);
     }
 
 

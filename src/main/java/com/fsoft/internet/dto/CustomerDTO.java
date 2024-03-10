@@ -20,7 +20,7 @@ public class CustomerDTO implements Validator {
     private String customerId;
 
     @Pattern(regexp = "^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêêềễìíứừựớờợòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s?]+$", message = "Name cannot be blank or contain special characters!")
-    private String name;
+    private String customerName;
 
     @NotEmpty(message = "Address is required!")
     private String address;
@@ -38,10 +38,10 @@ public class CustomerDTO implements Validator {
     public CustomerDTO() {
     }
 
-    public CustomerDTO(String customerId, String name, String address,
+    public CustomerDTO(String customerId, String customerName, String address,
                        String phoneNumber, String email, Integer deleteStatus) {
         this.customerId = customerId;
-        this.name = name;
+        this.customerName = customerName;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -56,12 +56,12 @@ public class CustomerDTO implements Validator {
         this.customerId = customerId;
     }
 
-    public String getName() {
-        return name;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     public String getAddress() {
@@ -98,7 +98,7 @@ public class CustomerDTO implements Validator {
 
     @Override
     public String toString() {
-        return "CustomerDTO [customerId=" + customerId + ", name=" + name
+        return "CustomerDTO [customerId=" + customerId + ", name=" + customerName
                 + ", address=" + address + ", phoneNumber=" + phoneNumber + ", email="
                 + email + ", deleteStatus=" + deleteStatus + "]";
     }
@@ -132,7 +132,7 @@ public class CustomerDTO implements Validator {
             errors.rejectValue("phoneNumber", "phone.matchs",
                     "Phone is in wrong format!");
         }
-        if (customerDTO.getName() == null || customerDTO.getName().isEmpty()) {
+        if (customerDTO.getCustomerName() == null || customerDTO.getCustomerName().isEmpty()) {
             errors.rejectValue("name", "name.error", "Required!");
         }
 

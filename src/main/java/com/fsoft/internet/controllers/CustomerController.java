@@ -1,20 +1,21 @@
 package com.fsoft.internet.controllers;
 
 import com.fsoft.internet.dto.CustomerDTO;
-import com.fsoft.internet.entities.Customer;
-import com.fsoft.internet.entities.Payment;
-import com.fsoft.internet.entities.Records;
+import com.fsoft.internet.models.Customer;
+import com.fsoft.internet.models.Payment;
 import com.fsoft.internet.services.customer.ICustomerService;
 import com.fsoft.internet.services.payment.IPaymentService;
 import com.fsoft.internet.services.record.IRecordService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.fsoft.internet.models.Record;
 
 import javax.validation.Valid;
 import java.text.NumberFormat;
@@ -33,7 +34,7 @@ public class CustomerController {
     private ModelMapper modelMapper;
 
     @Autowired
-    public CustomerController(IRecordService recordService, IPaymentService paymentService, ICustomerService customerService, ModelMapper modelMapper) {
+    public CustomerController(@Qualifier("main") IRecordService recordService, IPaymentService paymentService, ICustomerService customerService, ModelMapper modelMapper) {
         this.recordService = recordService;
         this.paymentService = paymentService;
         this.customerService = customerService;
@@ -46,31 +47,39 @@ public class CustomerController {
         return "customer/create-customer";
     }
 
-
     @PostMapping("/create")
     public String createNew(
-            @Valid @ModelAttribute("customerDto") CustomerDTO customerDTO,
+            @Valid @ModelAttribute("customerDto") CustomerDTO customerDto,
             BindingResult bindingResult, Model model,
             RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            List<FieldError> errors = bindingResult.getFieldErrors();
-            Map<String, String> errorList = new LinkedHashMap<>();
-            for (FieldError item : errors) {
-                String field = item.getField();
-                String msg = item.getDefaultMessage();
-                errorList.put(field, msg);
+        System.out.println("CREATE CUSTOMER POST MAPPING");
+        try {
+            if (bindingResult.hasErrors()) {
+                List<FieldError> errors = bindingResult.getFieldErrors();
+                Map<String, String> errorList = new LinkedHashMap<>();
+                for (FieldError item : errors) {
+                    String field = item.getField();
+                    String msg = item.getDefaultMessage();
+                    System.out.println(field + ": " + msg);
+                    errorList.put(field, msg);
+                }
+                model.addAttribute("errorList", errorList);
+                model.addAttribute("customer", customerDto);
+                return "customer/create-customer";
             }
-            model.addAttribute("errorList", errorList);
-            model.addAttribute("customer", customerDTO);
-            return "customer/create-customer";
-        }
 
-        model.addAttribute("message", "Add new customer successfully!");
-        Customer customer = modelMapper.map(customerDTO, Customer.class);
-        customerService.createOrUpdate(customer);
-        redirectAttributes.addFlashAttribute("message",
-                "Create customer successfully!");
-        return "redirect:/customer/list";
+            model.addAttribute("message", "Add new customer successfully!");
+            Customer customer = modelMapper.map(customerDto, Customer.class);
+            System.out.println(customer.toString());
+            customerService.create(customer);
+            redirectAttributes.addFlashAttribute("message",
+                    "Create customer successfully!");
+            return "redirect:/customer/list";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    return "redirect:/customer/test";
+
     }
 
     @GetMapping("/list")
@@ -127,14 +136,11 @@ public class CustomerController {
     @GetMapping("/{id}")
     public String showUpdateForm(Model model, @PathVariable("id") String id) {
         Optional<Customer> customer = customerService.findById(id);
-        if (customer.isPresent()) {
+        if (customer.isEmpty()) {
             return "commons/error-page";
         }
-        CustomerDTO customerDTO = new CustomerDTO();
-        if (customer.isPresent()) {
-            customerDTO = modelMapper.map(customer.get(), CustomerDTO.class);
-        }
-        model.addAttribute("customer", customerDTO);
+        CustomerDTO customerDTO = modelMapper.map(customer, CustomerDTO.class);
+        model.addAttribute("customerDto", customerDTO);
         return "customer/edit-customer";
     }
 
@@ -150,7 +156,7 @@ public class CustomerController {
             return "customer/edit-customer";
         }
         Customer customer = modelMapper.map(customerDTO, Customer.class);
-        customerService.createOrUpdate(customer);
+        customerService.update(customer);
         redirectAttributes.addFlashAttribute("message",
                 "Update customer successfully!");
         return "redirect:/customer/list";
@@ -173,7 +179,7 @@ public class CustomerController {
         if (customer.isPresent()) {
             return "commons/error-page";
         }
-        List<Records> records = recordService.getAllByCustomerId(id);
+        List<Record> records = recordService.getAllByCustomerId(id);
         List<Payment> payments = paymentService.getAllByCustomerId(id);
         Double totalDouble = paymentService.caculateTotal(payments);
         NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);

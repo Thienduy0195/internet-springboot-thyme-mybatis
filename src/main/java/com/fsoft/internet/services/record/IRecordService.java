@@ -1,22 +1,24 @@
 package com.fsoft.internet.services.record;
 
-import com.fsoft.internet.entities.Records;
+import com.fsoft.internet.models.Record;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface IRecordService {
 
-  void createOrUpdate(Records record);
+  void createOrUpdate(Record record);
 
-  List<Records> getAllByCustomerId(String id);
+  List<Record> getAllByCustomerId(String id);
 
-  int getNoOfRecords();
+  int getNoOfRecord();
 
-  List<Records> getRecordsForCurrentPage(int i, int recordsPerPage);
+  List<Record> getRecordForCurrentPage(int i, int RecordPerPage);
 
-  List<Records> search(String customerId, String computerId, int i,
-      int recordsPerPage);
+  List<Record> search(String customerId, String computerId, int i,
+      int RecordPerPage);
 
-  List<Records> search(String customerId, String computerId);
+  List<Record> search(String customerId, String computerId);
 
 }

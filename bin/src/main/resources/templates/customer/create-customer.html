@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create customer</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/create-customer.css}">
+</head>
+<body style="background-color: #121212;">
+
+<div class="container-fluid d-flex justify-content-center mt-3">
+    <div class="login-form">
+        <h3 class="text-center text-white">ADD NEW CUSTOMER</h3>
+        <form class="internet-form"
+              th:action="@{/customer/create}"
+              th:object="${customerDto}"
+              method="post">
+            <div class="row my-4">
+                <div class="col-md-3" style="padding-right: 15px">
+                    <div class="form-floating textbox mb-4">
+
+                        <input th:field="*{customerId}" type="text"
+                               class="form-control input" id="customerId"
+                               placeholder="Họ và tên" autocomplete="off"/>
+                        <label for="full-name" style="color: white"> Code
+                            (CUSxxxxx) <span class="text-danger">*</span>
+                        </label>
+                        <span class="text-danger" th:if="${#fields.hasErrors('customerId')}"
+                              th:errors="*{customerId}"></span>
+                    </div>
+                </div>
+                <div class="col-md-6" style="padding-right: 15px">
+                    <div class="form-floating textbox mb-4">
+                        <input th:field="*{name}" type="text" class="form-control input"
+                               id="full-name" placeholder="Họ và tên" autocomplete="off"/>
+                        <label for="full-name" style="color: white"> Full name <span
+                                class="text-danger">*</span>
+                        </label>
+                        <span class="text-danger" th:if="${#fields.hasErrors('name')}"
+                              th:errors="*{name}"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-3" style="padding-right: 15px">
+                    <div class="form-floating textbox mb-4">
+                        <input th:field="*{phoneNumber}" type="text"
+                               class="form-control input" id="phone-number"
+                               placeholder="Họ và tên" autocomplete="off"/>
+                        <label for="phone-number" style="color: white"> Phone <span
+                                class="text-danger">*</span>
+                        </label>
+                        <span class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}"
+                              th:errors="*{phoneNumber}"></span>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row my-4">
+                <div class="col-md-6" style="padding-right: 15px">
+                    <div class="form-floating textbox mb-4">
+                        <input th:field="*{email}" type="email" class="form-control input"
+                               id="email" placeholder="example@gmail.com" autocomplete="off"/>
+                        <label for="email" style="color: white"> Email <span
+                                class="text-danger">*</span>
+                        </label>
+                        <span class="text-danger" th:if="${#fields.hasErrors('email')}"
+                              th:errors="*{email}"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6" style="padding-right: 15px">
+                    <div class="form-floating textbox mb-4">
+                        <input th:field="*{address}" type="text" class="form-control input"
+                               id="address" placeholder="Họ và tên" autocomplete="off"/>
+                        <label for="address" style="color: white"> Address <span
+                                class="text-danger">*</span>
+                        </label>
+                        <span class="text-danger" th:if="${#fields.hasErrors('address')}"
+                              th:errors="*{address}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row my-4">
+                <div class="col-md-4 my-4"></div>
+                <div class="col-md-4" style="text-align: center; width: 100%">
+                    <button type="submit" name="button"
+                            class="btn btn-primary btn-responsive w-25" style="height: 40px">Add
+                        new
+                    </button>
+
+                    <a href="${pageContext.request.contextPath}/customer/list"
+                       class="w-25 btn btn-outline-light btn-responsive w-25 ms-3"
+                       style="height: 40px"> Cancel </a>
+
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+
+
+</html>

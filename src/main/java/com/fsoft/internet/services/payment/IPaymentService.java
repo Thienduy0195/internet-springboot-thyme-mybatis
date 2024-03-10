@@ -1,6 +1,6 @@
 package com.fsoft.internet.services.payment;
 
-import com.fsoft.internet.entities.Payment;
+import com.fsoft.internet.models.Payment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
