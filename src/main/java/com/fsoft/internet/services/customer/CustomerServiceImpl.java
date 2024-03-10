@@ -78,7 +78,7 @@ public class CustomerServiceImpl implements ICustomerService {
     @Override
     public List<Customer> searchByNameAndAddress(String searchName,
                                                  String searchAddress, int start, int recordsPerPage) {
-        return null;
+        return customerMapper.selectAll();
     }
 
     @Override

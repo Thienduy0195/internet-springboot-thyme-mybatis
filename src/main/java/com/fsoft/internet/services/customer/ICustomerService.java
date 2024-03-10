@@ -26,7 +26,7 @@ public interface ICustomerService {
   boolean delete(String id);
 
   List<Customer> searchByNameAndAddress(String searchName, String searchAddress,
-      int i, int recordsPerPage);
+      int start, int recordsPerPage);
 
   List<Customer> getRecordsForCurrentPage(int start, int recordsPerPage);
 

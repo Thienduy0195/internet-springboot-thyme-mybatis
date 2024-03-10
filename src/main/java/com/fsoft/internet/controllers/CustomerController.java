@@ -101,10 +101,12 @@ public class CustomerController {
         try {
             int start = page > 0 ? page - 1 : 0;
             int recordsPerPage = 5;
-            int noOfRecords = customerService
-                    .searchByNameAndAddress(searchName, searchAddress).size();
-            List<Customer> customers = customerService.searchByNameAndAddress(
-                    searchName, searchAddress, (start) * recordsPerPage, recordsPerPage);
+            int noOfRecords = 10;
+//            int noOfRecords = customerService
+//                    .searchByNameAndAddress(searchName, searchAddress).size();
+//            List<Customer> customers = customerService.searchByNameAndAddress(
+//                    searchName, searchAddress, (start) * recordsPerPage, recordsPerPage);
+            List<Customer> customers = customerService.findAllCustomer();
             int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
             if (page < 1) {
                 page = 2;
