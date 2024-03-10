@@ -62,7 +62,7 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public Optional<Customer> findById(String id) {
-        return null;
+        return Optional.ofNullable(customerMapper.selectByPrimaryKey(id));
     }
 
     @Override
@@ -72,7 +72,7 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public boolean delete(String id) {
-        return true;
+        return customerMapper.deleteByPrimaryKey(id) > 0;
     }
 
     @Override

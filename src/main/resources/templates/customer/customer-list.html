@@ -35,20 +35,22 @@
                     <div class="row pr-0">
                         <div class="col-10">
                             <form class="row"
-                                  action="${pageContext.request.contextPath}/customer/search"
-                                  method="get">
+                                  th:action="@{/customer/search}"
+                                  method="GET">
                                 <div class="col-4">
-                                    <input type="hidden" name="page" value="${1}"/> <input
+                                    <input type="hidden" name="page" th:value="${1}"/>
+
+                                    <input
                                         id="nameCustomer" type="text" name="searchName"
-                                        value="${searchName}" class="input-search form-control"
+                                        th:value="${searchName}" class="input-search form-control"
                                         placeholder="Enter name to search">
                                 </div>
 
                                 <div class="col-4">
 
                                     <input id="address" type="text" name="searchAddress"
-                                           class="input-search form-control" value="${searchAddress }"
-                                           placeholder="Enter address to search">
+                                           class="input-search form-control" th:value="${searchAddress }"
+                                           placeholder="Enter address to search"/>
                                 </div>
                                 <div class="col-4">
                                     <button type="submit"
@@ -97,7 +99,7 @@
                         <td th:text="${item.phoneNumber}"></td>
                         <td th:text="${item.email}"></td>
                         <td><a
-                                th:href="@{/customer/${item.customerId}}">
+                                th:href="@{/customer/{id}(id=${item.getCustomerId()})}">
                             <button class="btn btn-outline-secondary color-icon">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
@@ -105,11 +107,13 @@
 
                             <button type="button" class="btn btn-outline-secondary"
                                     data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                    onclick="showModalDelete('${item.customerId}', '${item.name}')">
+                                    th:attr="data-customer-id=${item.customerId}, data-customer-name=${item.customerName}"
+                                    onclick="showModalDelete(this.getAttribute('data-customer-id'), this.getAttribute('data-customer-name'))">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
+
                             <a
-                                    th:href="@{/customer/history/${item.customerId}}">
+                                    th:href="@{/customer/history/{id}(id=${item.getCustomerId()})}">
                                 <button type="button" class="btn btn-outline-secondary ">
                                     <i class="fa-solid fa-gears"></i>
                                 </button>
@@ -188,7 +192,7 @@
 <div class="modal fade" id="exampleModal" tabindex="-1"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <form action="${pageContext.request.contextPath}/customer/delete"
+        <form th:action="@{/customer/delete}"
               method="post">
             <div class="modal-content">
                 <div class="modal-header">
@@ -239,8 +243,6 @@
     </div>
 </div>
 <!--end thong bao sau khi delete -->
-
-<%@ include file="../commons/footer.html"%>
 
 
 <script>

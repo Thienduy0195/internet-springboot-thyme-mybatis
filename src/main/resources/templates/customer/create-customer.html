@@ -27,8 +27,9 @@
                         <label for="customerId" style="color: white"> Code
                             (CUSxxxxx) <span class="text-danger">*</span>
                         </label>
-                        <span id="customerId1" class="text-danger" th:if="${#fields.hasErrors('customerId')}"
-                              th:errors="*{customerId}"></span>
+                        <span id="customerId1" class="text-danger">
+                            <span class="text-danger" th:if="${#fields.hasErrors('customerId')}" th:errors="*{customerId}"></span>
+                        </span>
                     </div>
                 </div>
                 <div class="col-md-6" style="padding-right: 15px">
@@ -40,8 +41,11 @@
                         <label for="customerName" style="color: white"> Full name <span
                                 class="text-danger">*</span>
                         </label>
-                        <span id="customerName1" class="text-danger" th:if="${#fields.hasErrors('customerName')}"
-                              th:errors="*{customerName}"></span>
+                        <span id="customerName1" class="text-danger">
+                         <span class="text-danger" th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}"></span>
+                        </span>
+
+
                     </div>
                 </div>
 
@@ -55,8 +59,9 @@
                         <label for="phoneNumber" style="color: white"> Phone <span
                                 class="text-danger">*</span>
                         </label>
-                        <span id="phoneNumber1" class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}"
-                              th:errors="*{phoneNumber}"></span>
+                        <span id="phoneNumber1" class="text-danger">
+                        <span class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
+                        </span>
                     </div>
                 </div>
 
@@ -72,8 +77,9 @@
                         <label for="email" style="color: white"> Email <span
                                 class="text-danger">*</span>
                         </label>
-                        <span id="email1" class="text-danger" th:if="${#fields.hasErrors('email')}"
-                              th:errors="*{email}"></span>
+                        <span id="email1" class="text-danger">
+                        <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                        </span>
                     </div>
                 </div>
 
@@ -86,8 +92,10 @@
                         <label for="address" style="color: white"> Address <span
                                 class="text-danger">*</span>
                         </label>
-                        <span id="address1" class="text-danger" th:if="${#fields.hasErrors('address')}"
+                        <span id="address1" class="text-danger">
+                        <span class="text-danger" th:if="${#fields.hasErrors('address')}"
                               th:errors="*{address}"></span>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -95,12 +103,12 @@
             <div class="row my-4">
                 <div class="col-md-4 my-4"></div>
                 <div class="col-md-4" style="text-align: center; width: 100%">
-                    <button type="submit" name="button"
+                    <button type="submit" name="button" id="submitBtn"
                             class="btn btn-primary btn-responsive w-25" style="height: 40px">Add
                         new
                     </button>
 
-                    <a href="${pageContext.request.contextPath}/customer/list"
+                    <a th:href="@{/customer/list}"
                        class="w-25 btn btn-outline-light btn-responsive w-25 ms-3"
                        style="height: 40px"> Cancel </a>
 
@@ -115,7 +123,7 @@
 
 <script>
 
-    var valid = [];
+    let valid = [];
     function validateByJS(id, nameInput, valueInput) {
         const index = valid.findIndex(obj => obj.hasOwnProperty(id));
         let checkVar = checkValidate(valueInput,nameInput)
@@ -128,9 +136,14 @@
                 valid = [...valid, {[id]: true }];
                 console.log(valid);
             }
-            document.getElementById(id+"1").innerText= checkVar
+            let element = document.getElementById(id+"1");
+            if (element) {
+                element.innerText = checkVar;
+            }else {
+                console.log("NO element was found!");
+            }
         } else {
-            console.log(index)
+            console.log("index: ", index)
             if (index !== -1) {
                 valid[index][id]= false
                 document.getElementById(id+"1").innerText=""
@@ -159,7 +172,7 @@
             return "Required!";
         }
 
-        if(nameValidate === 'computerId') {
+        if(nameValidate === 'customerId') {
             if(!value.match(codeRegex)) {
                 return "Wrong format CUSxxxxx";
             }

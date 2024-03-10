@@ -16,7 +16,7 @@ public interface CustomerMapper {
 
     int deleteByPrimaryKey(String customerId);
 
-    int insertCustomer(Customer row);
+    void insertCustomer(Customer row);
 
     int insertSelective(Customer row);
 
